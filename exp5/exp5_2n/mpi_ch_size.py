@@ -16,14 +16,16 @@ with open(file_name, 'w') as csv:
     ColumnRow = 'rank, msg_num, loss%, timestamp\n'
     csv.write(ColumnRow)
 
-    while loss <= 2.0:
+    while loss < 2.0:
         msg_num = 0
-        if rank == 0:
-            loss += 0.02
-            subprocess.run(['./tc_setup.sh', str(loss)])
-            print("At %d loss", loss)
+        loss += 0.2
+        print("At %f loss" % loss)
+        loss_per = loss/size
+        command = './tc_setup.sh ' + str(loss_per)
+        arg = command.split()
+        subprocess.run(arg)
         while msg_num < 100:
-            if rank == 1:
+            if rank != 0:
                 data = bytes(payload_size)
                 time_send = time.time()
                 comm.send(data, dest=0, tag=msg_num)
@@ -38,5 +40,5 @@ with open(file_name, 'w') as csv:
                     csv.write('\n')
                     msg_num += 1
 
-
+    print('ended')
 

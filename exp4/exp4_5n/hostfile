@@ -1,6 +1,7 @@
-mpi1 slots=0
+mpi1 slots=1
 mpi2 slots=1
 mpi3 slots=1
 mpi4 slots=1
 mpi5 slots=1
 mpi6 slots=1
+

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-scp mpi1:rank_0.csv ./recv.csv
-scp mpi2:rank_1.csv ./send.csv
+scp mpi1:results.csv ./mpi1.csv
+scp mpi2:results.csv ./mpi2.csv

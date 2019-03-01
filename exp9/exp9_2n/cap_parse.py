@@ -14,14 +14,17 @@ with open('stream_len.csv', 'w') as csv:
         if 'TCP' in pkt:
             if pkt.ip.src == '172.31.82.249':
                 if int(pkt.tcp.stream) in streams.keys():
-                    streams[int(pkt.tcp.stream)].append(int(pkt.length))
+                    if pkt.tcp.len is not None:
+                        streams[int(pkt.tcp.stream)].append(int(pkt.tcp.len))
                 else:
-                    streams[int(pkt.tcp.stream)] = [int(pkt.length)]
+                    if pkt.tcp.len is not None:
+                        streams[int(pkt.tcp.stream)] = [int(pkt.tcp.len)]
 
     for stream, values in streams.items():
         length_stream = 0
         for length in values:
             length_stream += length
+        print(length_stream)
         if length_stream > 530:
             overhead = length_stream - payload_size
             csv.write('%d, %d, %d' % (payload_size, length_stream, overhead))

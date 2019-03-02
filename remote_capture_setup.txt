@@ -4,4 +4,4 @@ wireshark -k -i /tmp/remote
 
 to start remote tcpdump:
 
-ssh mpi1 "sudo tcpdump -s 0 -U -n -w - -i eth0 not port 22" > /tmp/remote
+ssh server "sudo tcpdump -s 0 -U -n -w - -i eth0 not port 22" > /tmp/remote
